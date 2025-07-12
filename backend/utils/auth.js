@@ -5,4 +5,13 @@ const requireAuth = (req,res,next)=>{
     next();
 }
 
-module.exports = requireAuth;
+const checkAuth = (req,res,next)=>{
+    res.locals.isAuthenticated = req.session.userId?true:false;
+    next();
+}
+const logoutAuth = (req,res)=>{
+   return req.session.destroy(() => res.redirect('/'));
+
+}
+
+module.exports = {requireAuth,checkAuth,logoutAuth}

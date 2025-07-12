@@ -34,21 +34,21 @@ const login = async (req, res) => {
         const { email, password } = req.body;
         const userExisting = await Users.findOne({ email });
         if (!userExisting) {
-            return res.render('login', { message: "User not registerd with us .Please Sign up first" })
+            return res.render('login', { message: "User not registerd with us .Please Sign up first",isAuthenticated:false })
         }
         const passwordMatch = await bcrypt.compare(password, userExisting.password);
         if (passwordMatch) {
            
             req.session.userId = userExisting._id;
            
-            return res.render('home', { message: null })
+            return res.redirect('/')
         }
         else {
-            return res.render('login', { message: "Wrong password. Please try again" })
+            return res.render('login', { message: "Wrong password. Please try again",isAuthenticated:false })
         }
     }
     catch (err) {
-        return res.render('login', { message: "User cannot be logged because of some error from server. please try again" })
+        return res.render('login', { message: "User cannot be logged because of some error from server. please try again",isAuthenticated:false })
     }
 }
 

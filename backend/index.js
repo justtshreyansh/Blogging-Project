@@ -6,6 +6,7 @@ const Users = require('./models/Users');
 const { login, signup, register, loginPage } = require('./controllers/userController');
 const router = require('./Routes');
 const session = require('express-session');
+const { checkAuth } = require('./utils/auth');
 
 const app = express(); 
 
@@ -21,8 +22,9 @@ app.use(session({
   resave:true,
   saveUninitialized:true
 }))
-
+app.use(checkAuth)
 app.use('/', router);
+
 
 
 mongoose.connect("mongodb+srv://justtshreyansh:Hustler%4007@cluster0.m4xwkww.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")

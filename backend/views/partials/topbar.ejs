@@ -1,0 +1,66 @@
+<style>
+  .top-bar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 12px;
+  }
+
+  .tab {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  .tab:hover {
+    border-bottom: 2px solid #fff;
+  }
+
+  #logoutButton {
+    padding: 8px 12px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  #logoutButton:hover {
+    background-color: #c82333;
+  }
+
+  a.button-link {
+    text-decoration: none;
+    color: #fff;
+  }
+</style>
+
+<div class="top-bar">
+  <div class="tabs">
+    <div class="tab"><a href="/" class="button-link">Home</a></div>
+
+    <% if (isAuthenticated) { %>
+      <div class="tab"><a href="/myblogs" class="button-link">My Blogs</a></div>
+    <% } %>
+  </div>
+
+  <div class="logout">
+    <% if (isAuthenticated) { %>
+     
+       <form action="/logout" method="POST" style="display: inline;">
+  <button id="logoutButton" type="submit">Log Out</button>
+</form>
+     
+    <% } else { %>
+      <a href="/login"><button id="logoutButton">Login</button></a>
+    <% } %>
+  </div>
+</div>
